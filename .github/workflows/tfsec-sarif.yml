@@ -1,0 +1,27 @@
+---
+name: tfsec-sarif
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  tfsec-sarif:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # NOTE: should be changed to a tagged release but the latest
+      # release currently has a broken Dockerfile.
+      - name: Collect SARIF from tfsec
+        uses: tfsec/tfsec-sarif-action@master
+        with:
+          sarif_file: tfsec.sarif
+
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: tfsec.sarif

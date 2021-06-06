@@ -1,0 +1,16 @@
+---
+name: tfsec-pr
+
+on: pull_request
+
+jobs:
+  tfsec-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: tfsec-pr
+        uses: tfsec/tfsec-pr-commenter-action@v0.1.4
+        with:
+          github_token: ${{ github.token }}
